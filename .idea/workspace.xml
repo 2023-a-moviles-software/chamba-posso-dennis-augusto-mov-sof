@@ -61,16 +61,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/escritorio.virtual6/Documents/appMoviles_DennisChamba/chamba-posso-dennis-augusto-mov-sof&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/escritorio.virtual6/Documents/appMoviles_DennisChamba"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Kotlin.ClasesKt">
     <configuration name="ClasesKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ClasesKt" />
@@ -126,7 +126,7 @@
       <option name="presentableId" value="Default" />
       <updated>1684842923559</updated>
       <workItem from="1684842928703" duration="1190000" />
-      <workItem from="1685018076968" duration="5066000" />
+      <workItem from="1685018076968" duration="5802000" />
     </task>
     <servers />
   </component>
