@@ -41,4 +41,13 @@ fun main(arg: Array<String>){
     println(resepuestaFilter)
     println(respuestaFilter2)
 
+    //OR AND
+    // OR -> ANY (alguno cumple?)
+    // AND -> ALL (todos cumplen?)
+
+    val respuestaAny: Boolean = arreglosDinamicos.any { valorActual: Int -> return@any (valorActual > 5) }
+    println(respuestaAny)
+
+    val respuestaAll: Boolean = arreglosDinamicos.all { valorActual: Int -> return@all (valorActual > 5) }
+    println(respuestaAll)
 }
