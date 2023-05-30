@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e91e29ac-82f1-4e21-ad5c-e62624d3c7da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/chamba-posso-dennis-augusto-mov-sof.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/00-kotiln/AppMovil01/src/main/kotlin/clases.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/00-kotiln/AppMovil01/src/main/kotlin/condicionales.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/00-kotiln/AppMovil01/src/main/kotlin/funciones.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/00-kotiln/AppMovil01/src/main/kotlin/variables.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leccion_Kotlin/src/main/kotlin/arreglos.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +35,7 @@
       <list>
         <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Script" />
       </list>
     </option>
   </component>
@@ -66,9 +58,8 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/escritorio.virtual6/Documents/appMoviles_DennisChamba"
+    "last_opened_file_path": "C:/Users/escritorio.virtual6/Documents/appMoviles_DennisChamba/chamba-posso-dennis-augusto-mov-sof/Leccion_Kotlin"
   }
 }]]></component>
   <component name="RunManager" selected="Kotlin.ClasesKt">
@@ -127,6 +118,8 @@
       <updated>1684842923559</updated>
       <workItem from="1684842928703" duration="1190000" />
       <workItem from="1685018076968" duration="5802000" />
+      <workItem from="1685448472799" duration="1120000" />
+      <workItem from="1685449749482" duration="17000" />
     </task>
     <servers />
   </component>
