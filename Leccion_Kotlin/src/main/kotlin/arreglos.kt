@@ -50,4 +50,20 @@ fun main(arg: Array<String>){
 
     val respuestaAll: Boolean = arreglosDinamicos.all { valorActual: Int -> return@all (valorActual > 5) }
     println(respuestaAll)
+
+    /*
+    Reduce -> valor acumulado
+    valor acumulado = 0
+    [1, 2, 3, 4, 5]
+    v1 = valorInicio + 1
+    v2 = v1 + 2
+    .
+    .
+    .
+    */
+
+    val respuestaReduce: Int = arreglosDinamicos.reduce{
+        acumulado: Int, valorActual: Int -> return@reduce (acumulado + valorActual)
+    }
+    println(respuestaReduce)
 }
