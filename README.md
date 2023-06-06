@@ -1,3 +1,3 @@
 # chamba-posso-dennis-augusto-mov-sof
 
-## 7mo semestre
+## 7mo semestre.
