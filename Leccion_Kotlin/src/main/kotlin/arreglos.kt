@@ -1,4 +1,5 @@
 import java.util.ArrayList
+import kotlin.String
 
 
 fun main(arg: Array<String>){
@@ -49,7 +50,7 @@ fun main(arg: Array<String>){
     println(respuestaAny)
 
     val respuestaAll: Boolean = arreglosDinamicos.all { valorActual: Int -> return@all (valorActual > 5) }
-    println(respuestaAll)
+    println(respuestaAll)  
 
     /*
     Reduce -> valor acumulado

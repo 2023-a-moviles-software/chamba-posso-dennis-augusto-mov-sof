@@ -1,0 +1,4 @@
+juan,1103077556,654,sistema,lunes -> [13:20]
+dennis,1725661183,6587,sistemas,lunes -> [12:34]
+pedro,1725661191,654,sistemas,lunes -> [15:00]
+manuel,1714176813,65,quimica,martes -> [11:30]; lunes -> [13:20]

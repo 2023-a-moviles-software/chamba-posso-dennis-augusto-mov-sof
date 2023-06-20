@@ -1,4 +1,5 @@
 import java.util.Date
+import kotlin.String
 
 fun main(arg: Array<String>) {
     //inmutables: no se reasignan "="
@@ -15,7 +16,7 @@ fun main(arg: Array<String>) {
     val edad = 12;
 
     //tipos de variables primitivas
-    val nombre:String = "String";
+    val nombre: String = "String";
     val sueldo: Double = 123.3;
     val estadoCivil: Char = 'c';
     val mayorEdad: Boolean = true;

@@ -1,5 +1,6 @@
+import kotlin.String
 
-    abstract class NumerosJava{
+abstract class NumerosJava{
         protected val numeroUno: Int
         private val numeroDos: Int
 
@@ -17,7 +18,7 @@
     abstract class Numeros(//constructor primario
         //ejemplo
         //uno: Int parametro sin modificador de accesp
-        //private var uno:Int Proiedad publica clase numeros.uno
+        //private var uno:Int Propiedad publica clase numeros.uno
         //var uno. Int propiedad de la clase por defecto es public
         //public var uno: Int
         protected val numeroUno: Int, // propiedad de la clase protected numeros.numeroUno
@@ -57,7 +58,7 @@
         if(dos == null)0 else dos,
         )
 
-        constructor( //Segundo constructor
+        constructor( //Cuarto constructor
         uno: Int?,//parametros
         dos:Int?//Parametros
         ):this(

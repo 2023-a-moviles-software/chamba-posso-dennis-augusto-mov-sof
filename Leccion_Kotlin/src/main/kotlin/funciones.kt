@@ -1,3 +1,5 @@
+import kotlin.String
+
 fun main(arg: Array<String>){
     //void -> unit
     fun imprimirNombre(nombre: String): Unit{
