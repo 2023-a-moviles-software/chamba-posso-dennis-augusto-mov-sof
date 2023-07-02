@@ -28,7 +28,7 @@ class AACicloVida : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        //WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
 
         binding = ActivityAacicloVidaBinding.inflate(layoutInflater)
@@ -42,7 +42,7 @@ class AACicloVida : AppCompatActivity() {
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
+                //.setAnchorView(R.id.fab)
                 .setAction("Action", null).show()
         }
         mostrarSnackbar("onCreate")
@@ -86,7 +86,7 @@ class AACicloVida : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         // recuperar variables
         // primitivas
-        val textoRecuperado: String? = savedInstanceState.getString("variablesTextoGuardado")
+        val textoRecuperado: String? = savedInstanceState.getString("variablesTextoGuardado").toString()
         if(textoRecuperado != null){
             mostrarSnackbar(textoRecuperado)
             textoGlobal = textoRecuperado
