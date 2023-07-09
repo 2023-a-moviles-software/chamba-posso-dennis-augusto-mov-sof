@@ -42,11 +42,17 @@ class AACicloVida : AppCompatActivity() {
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //.setAnchorView(R.id.fab)
                 .setAction("Action", null).show()
         }
         mostrarSnackbar("onCreate")
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_aaciclo_vida)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
+    }
+
     override fun onStart() {
         super.onStart()
         mostrarSnackbar("onStart")
@@ -73,7 +79,6 @@ class AACicloVida : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         outState.run{
             //guardar las variables
             //primitivas
@@ -93,9 +98,5 @@ class AACicloVida : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_aaciclo_vida)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
+
 }

@@ -10,19 +10,17 @@
         android:id="@+id/lv_list_view"
         android:layout_width="367dp"
         android:layout_height="401dp"
-        android:layout_marginBottom="128dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_anadir_list_view"
-        app:layout_constraintEnd_toEndOf="@+id/btn_anadir_list_view"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/btn_anadir_list_view"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="87dp" />
 
     <Button
         android:id="@+id/btn_anadir_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Añadir"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="586dp" />
+        android:layout_marginTop="128dp"
+        android:text="Agregar"
+        app:layout_constraintEnd_toEndOf="@+id/lv_list_view"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="@+id/lv_list_view"
+        app:layout_constraintTop_toBottomOf="@+id/lv_list_view"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

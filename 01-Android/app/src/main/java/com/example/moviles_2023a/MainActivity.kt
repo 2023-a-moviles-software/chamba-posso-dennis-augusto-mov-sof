@@ -11,6 +11,9 @@ import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 
 class MainActivity : AppCompatActivity() {
+
+
+
     val callbackContenidoIntentExplicito =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -20,7 +23,7 @@ class MainActivity : AppCompatActivity() {
                 if(result.data != null){
                     // logica negocio
                     val data = result.data
-                    "${data?.getStringArrayExtra("nombreModificado")}"
+                    "${data?.getStringExtra("nombreModificado")}"
                 }
             }
         }
@@ -32,27 +35,47 @@ class MainActivity : AppCompatActivity() {
     ){
         result ->
         if(result.resultCode === RESULT_OK){
-            if(result.data!!.data != null){
-                val uri: Uri = result.data!!.data!!
-                val cursor = contentResolver.query(uri, null, null, null, null, null)
-                cursor?.moveToFirst()
-                val indiceTelefono = cursor?.getColumnIndex(
-                    ContactsContract.CommonDataKinds.Phone.NUMBER
+            if(result.data != null){
+                if(result.data!!.data != null){
+                    val uri: Uri = result.data!!.data!!
+                    val cursor = contentResolver.query(uri, null, null, null, null, null)
+                    cursor?.moveToFirst()
+                    val indiceTelefono = cursor?.getColumnIndex(
+                        ContactsContract.CommonDataKinds.Phone.NUMBER
+                    )
+                    val telefono = cursor?.getString(indiceTelefono!!)
+                    cursor?.close()
+                    "Telefono ${telefono}"
+                }
+                //Lógica del negocio
+                val uri = result.data?.data
+                val intentConRespuesta = Intent()
+                intentConRespuesta.putExtra("uri",uri.toString())
+                setResult(
+                    RESULT_OK,
+                    intentConRespuesta
                 )
-                val telefono = cursor?.getString(indiceTelefono!!)
-                cursor?.close()
-                "Telefono ${telefono}"
+                finish()
             }
         }
     }
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //base de datos sqLite
+        EBaseDatos.tablaEntrenador = ESqliteHelperEntrenador(this)
+
 
         //Se crea una variable para el botón ciclo de vida
         val botonCicloVida = findViewById<Button>(
             R.id.btn_Ciclo_vida
         )
+        //Se añade un listener al botón ciclo de vida
         botonCicloVida.setOnClickListener{
             irActividad(AACicloVida::class.java)
         }
@@ -66,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val botonIntentImplicito = findViewById<Button>(R.id.btn_ir_intent_implicito)
+
         botonIntentImplicito.setOnClickListener{
             val intentConRespuesta = Intent(
                 Intent.ACTION_PICK,
