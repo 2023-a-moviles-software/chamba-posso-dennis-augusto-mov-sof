@@ -1,5 +1,6 @@
 package com.example.moviles_2023a
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -103,6 +105,11 @@ class MainActivity : AppCompatActivity() {
         )
         botonIntentExplicito.setOnClickListener {
             abrirActividadConParametros(CIntentExplicitoParametros::class.java)
+        }
+
+        val botonRecyclerView = findViewById<Button>(R.id.btn_ir_recycle_view)
+        botonRecyclerView.setOnClickListener{
+            irActividad(FRecyclerView::class.java)
         }
     }
 
