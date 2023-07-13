@@ -12,7 +12,7 @@ class crear_docente : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_docente)
 
-        val botonCrear = findViewById<Button>(R.id.btn_guardarDocente)
+        val botonCrear = findViewById<Button>(R.id.btn_modificar)
         botonCrear.setOnClickListener{
             registrarDocente(ListView_Docentes.adaptadorDocente)
         }

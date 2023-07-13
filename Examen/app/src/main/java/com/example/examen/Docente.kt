@@ -22,18 +22,22 @@ class Docente {
         this.Facultad = Facultad
     }
 
-    /*
-    fun getHorario_Atencion(): String{
+
+    fun mostrarHorarioAtencion(): String{
         var lista: String = ""
         for (x in Horario_Atencion){
             lista = lista + ", "+ x
         }
         return lista
     }
-    */
+
 
 
     override fun toString(): String{
-        return "${Cedula} - ${Nombre} - ${Facultad}"
+        return "Nombre:${Nombre} \n" +
+                "Cedula: ${Cedula} \n" +
+                "Facultad: ${Facultad} \n " +
+                "Oficina: ${Numero_Oficina} \n " +
+                "Tutorias: ${mostrarHorarioAtencion()}"
     }
 }

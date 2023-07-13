@@ -62,7 +62,7 @@ class ListView_Docentes : AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_editar_maestro -> {
-                //irActividad(ActualizacionRestaurante::class.java)
+                irActividad(editar_docente::class.java)
                 return true
             }
 
@@ -71,7 +71,7 @@ class ListView_Docentes : AppCompatActivity() {
                 adaptadorDocente.notifyDataSetChanged()
                 return true
             }
-            /*
+/*
             R.id.menu_platillos_res -> {
                 val restaurate = arregloRestaurante[idItemSeleccionado]
                 restauranteId = restaurate.id
@@ -81,7 +81,6 @@ class ListView_Docentes : AppCompatActivity() {
             }
 */
             else -> super.onContextItemSelected(item)
-
 
         }
     }
