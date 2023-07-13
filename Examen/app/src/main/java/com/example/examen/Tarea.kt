@@ -3,13 +3,13 @@ package com.example.examen
 import java.util.Date
 
 class Tarea {
-    val id: Int
-    val Descripcion: String
-    val Fecha_Entrega: Date
-    val Materia: String
-    val CedulaDocente: String
-    val Entregado: Boolean
-    val calificacion: Double
+    var id: Int
+    var Descripcion: String
+    var Fecha_Entrega: Date
+    var Materia: String
+    var CedulaDocente: String
+    var Entregado: Boolean
+    var calificacion: Double
 
     constructor(
         id: Int,

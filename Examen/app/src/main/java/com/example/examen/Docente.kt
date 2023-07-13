@@ -2,11 +2,11 @@ package com.example.examen
 
 class Docente {
 
-    val Nombre: String
-    val Cedula: String
-    val Numero_Oficina: Int
-    val Horario_Atencion: Array<String>
-    val Facultad: String
+    var Nombre: String
+    var Cedula: String
+    var Numero_Oficina: Int
+    var Horario_Atencion: Array<String>
+    var Facultad: String
 
     constructor(
         Nombre: String,

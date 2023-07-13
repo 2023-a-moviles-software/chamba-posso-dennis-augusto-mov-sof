@@ -53,5 +53,77 @@ class BaseDatos {
     }
 
     //eliminar tarea
-    fun eliminarTarea(id)
+    fun eliminarTarea(id: Int): Boolean{
+        val tareaBuscada = buscarTareas(id)
+        if(tareaBuscada != null){
+            val indice = arregloTareas.indexOf(tareaBuscada)
+            arregloTareas.remove(tareaBuscada)
+            return true
+        }
+        return false
+    }
+
+    //modificar docente
+    fun modificarDocente(
+        nombre: String,
+        cedula: String,
+        oficina: Int,
+        Horario: Array<String>,
+        Facultad: String): Boolean{
+        val docenteBuscado = buscarDocente(cedula)
+        if(docenteBuscado != null){
+            val indice = arregloDocentes.indexOf(docenteBuscado)
+            arregloDocentes[indice].Cedula = cedula
+            arregloDocentes[indice].Nombre = nombre
+            arregloDocentes[indice].Numero_Oficina = oficina
+            arregloDocentes[indice].Horario_Atencion = Horario
+            arregloDocentes[indice].Facultad = Facultad
+            return true
+        }
+        return false
+    }
+
+    //modificar tarea
+    fun modificarTarea(
+        id: Int,
+        descripcion: String,
+        fechaEntrega: Date,
+        Materia: String,
+        CedulaDocente: String,
+        Entregado: Boolean,
+        calificacion: Double): Boolean{
+        val tareaBuscada = buscarTareas(id)
+        if(tareaBuscada != null){
+            val indice = arregloTareas.indexOf(tareaBuscada)
+            arregloTareas[indice].id = id
+            arregloTareas[indice].Descripcion = descripcion
+            arregloTareas[indice].Fecha_Entrega = fechaEntrega
+            arregloTareas[indice].Materia = Materia
+            arregloTareas[indice].CedulaDocente = CedulaDocente
+            arregloTareas[indice].Entregado = Entregado
+            arregloTareas[indice].calificacion = calificacion
+            return true
+        }
+        return false
+    }
+
+    //agreagar docente
+    fun agregarDocente(profe: Docente): Boolean{
+        if(buscarDocente(profe.getCedula()) == null){
+            arregloDocentes.add(profe)
+            return true
+        }
+        return false
+    }
+
+    //agregar tarea
+    fun agregarTarea(deber: Tarea): Boolean{
+        if(buscarTareas(deber.id) == null){
+            arregloTareas.add(deber)
+            return true
+        }
+        return false
+    }
+
+
 }

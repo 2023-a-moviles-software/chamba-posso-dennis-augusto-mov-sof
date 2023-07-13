@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListView_Tareas">
+
+    <ListView
+        android:layout_width="324dp"
+        android:layout_height="420dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.427" />
+
+    <Button
+        android:id="@+id/btn_agregar_tarea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="Añadir Tareas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/_dynamic"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/_dynamic"
+        app:layout_constraintTop_toBottomOf="@+id/_dynamic"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/nombre_docente"
+        android:layout_width="287dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="64dp"
+        android:text="Docente"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        app:layout_constraintEnd_toEndOf="@+id/_dynamic"
+        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintStart_toStartOf="@+id/_dynamic"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="79dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="16dp"
+        android:text="Tareas"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        app:layout_constraintEnd_toEndOf="@+id/_dynamic"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/_dynamic"
+        app:layout_constraintTop_toBottomOf="@+id/nombre_docente"
+        app:layout_constraintVertical_bias="0.8" />
+</androidx.constraintlayout.widget.ConstraintLayout>
