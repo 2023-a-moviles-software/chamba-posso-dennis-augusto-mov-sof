@@ -3,81 +3,79 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tv_nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="nombre"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_cedula"
-        app:layout_constraintTop_toTopOf="@+id/tv_cedula"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="54dp" />
-
-    <TextView
-        android:id="@+id/tv_cedula"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="cedula"
-        app:layout_constraintBottom_toTopOf="@+id/btn_dar_like"
-        app:layout_constraintEnd_toEndOf="@+id/btn_dar_like"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/btn_dar_like" />
-
-    <TextView
-        android:id="@+id/tv_likes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:text="likes"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_cedula"
-        app:layout_constraintStart_toEndOf="@+id/tv_cedula"
-        app:layout_constraintTop_toTopOf="@+id/tv_cedula"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btn_dar_like"
-        android:layout_width="239dp"
-        android:layout_height="51dp"
-        android:text="dar like"
-        tools:layout_editor_absoluteX="77dp"
-        tools:layout_editor_absoluteY="114dp" />
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="341dp"
-        android:layout_height="175dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="27dp"
-        tools:layout_editor_absoluteY="1dp">
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-            <LinearLayout
-                android:layout_width="339dp"
-                android:layout_height="66dp"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="107dp"></LinearLayout>
+            <TextView
+                android:id="@+id/tv_nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:foregroundGravity="center"
+                android:text="Nombre"
+                android:textAlignment="center" />
 
-            <LinearLayout
-                android:layout_width="339dp"
-                android:layout_height="49dp"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="43dp"></LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_cedula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:foregroundGravity="center"
+                android:text="Cédula"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:foregroundGravity="center"
+                android:text="Likes"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/btn_dar_like"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Dar like" />
+        </LinearLayout>
     </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="391dp"
-        android:layout_height="185dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="0dp">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

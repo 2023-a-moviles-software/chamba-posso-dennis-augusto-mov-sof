@@ -111,6 +111,11 @@ class MainActivity : AppCompatActivity() {
         botonRecyclerView.setOnClickListener{
             irActividad(FRecyclerView::class.java)
         }
+
+        val botonSQLite = findViewById<Button>(R.id.btn_ir_sqlite)
+        botonSQLite.setOnClickListener{
+            irActividad(ECrudEntrenador::class.java)
+        }
     }
 
     fun irActividad( clase: Class<*>){

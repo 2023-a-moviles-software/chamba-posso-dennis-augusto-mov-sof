@@ -15,11 +15,12 @@ class ESqliteHelperEntrenador (
 ) {
     override fun onCreate(db: SQLiteDatabase?){
         val scriptSQLCrearTablaEntrenador = """
-            CREATE TABLE ENTRENADOR
+            CREATE TABLE ENTRENADOR(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre VARCHAR(50),
-            desscripcion VARCHAR(50)
+            desscripcion VARCHAR(50))
         """.trimIndent()
+        db?.execSQL(scriptSQLCrearTablaEntrenador) //ejecuta el script
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion:Int){
