@@ -3,9 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_editar_platillo"
+        android:id="@+id/menu_detalle_tarea"
+        android:title="Ver detalles" />
+    <item
+        android:id="@+id/menu_editar_tarea"
         android:title="Editar" />
     <item
-        android:id="@+id/menu_eliminar_platillo"
+        android:id="@+id/menu_eliminar_tarea"
         android:title="Eliminar" />
 </menu>
