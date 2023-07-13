@@ -29,5 +29,7 @@ class Tarea {
         this.calificacion = calificacion
     }
 
-
+    override fun toString(): String {
+        return "${id}) ${Descripcion} \n"
+    }
 }

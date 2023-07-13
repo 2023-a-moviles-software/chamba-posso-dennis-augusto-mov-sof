@@ -71,15 +71,15 @@ class ListView_Docentes : AppCompatActivity() {
                 adaptadorDocente.notifyDataSetChanged()
                 return true
             }
-/*
-            R.id.menu_platillos_res -> {
-                val restaurate = arregloRestaurante[idItemSeleccionado]
-                restauranteId = restaurate.id
 
-                irActividad(ListViewPlatillo::class.java)
+            R.id.menu_tarea_maestro -> {
+                val docente = docentes[idItemSeleccionado]
+                cedulaDocente = docente.Cedula
+
+                irActividad(ListView_Tareas::class.java)
                 return true
             }
-*/
+
             else -> super.onContextItemSelected(item)
 
         }
