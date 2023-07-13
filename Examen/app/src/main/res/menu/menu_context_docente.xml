@@ -4,7 +4,7 @@
         android:id="@+id/menu_editar_maestro"
         android:title="Editar" />
     <item
-        android:id="@+id/menu_eliminar_res"
+        android:id="@+id/menu_eliminar_docente"
         android:title="Eliminar" />
     <item
         android:id="@+id/menu_tarea_maestro"

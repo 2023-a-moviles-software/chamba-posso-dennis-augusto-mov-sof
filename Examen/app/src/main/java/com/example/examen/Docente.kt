@@ -22,15 +22,7 @@ class Docente {
         this.Facultad = Facultad
     }
 
-    fun getNombre(): String{
-        return Nombre
-    }
-    fun getCedula(): String{
-        return Cedula
-    }
-    fun getNumeroCedula():Int{
-        return Numero_Oficina
-    }
+    /*
     fun getHorario_Atencion(): String{
         var lista: String = ""
         for (x in Horario_Atencion){
@@ -38,9 +30,8 @@ class Docente {
         }
         return lista
     }
-    fun getFacultad(): String{
-        return Facultad
-    }
+    */
+
 
     override fun toString(): String{
         return "${Cedula} - ${Nombre} - ${Facultad}"

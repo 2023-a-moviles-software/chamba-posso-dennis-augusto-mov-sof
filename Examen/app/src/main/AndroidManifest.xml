@@ -22,7 +22,7 @@
             android:name=".ListView_Tareas"
             android:exported="false" />
         <activity
-            android:name=".ListView_Docentes"
+            android:name="com.example.examen.ListView_Docentes"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
