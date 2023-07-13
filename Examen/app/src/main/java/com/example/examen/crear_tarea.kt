@@ -1,15 +1,11 @@
 package com.example.examen
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity() {
+class crear_tarea : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        startActivity(Intent(this, ListView_Docentes::class.java))
-
+        setContentView(R.layout.activity_crear_tarea)
     }
 }
