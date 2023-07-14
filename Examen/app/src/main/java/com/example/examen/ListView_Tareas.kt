@@ -88,14 +88,23 @@ class ListView_Tareas : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_editar_platillo -> {
-                //irActividad(ActualizacionPlatillo::class.java)
+            R.id.menu_editar_tarea -> {
+                irActividad(editar_tarea::class.java)
                 return true
 
             }
 
-            R.id.menu_eliminar_platillo -> {
-                eliminarPlatillo(adaptadorPlatillo, idItemSeleccionadoPlatillo)
+            R.id.menu_eliminar_tarea -> {
+                val idtarea = tareasDelDocente[idTareaSeleccionada].id
+                BaseDatos.eliminarTarea(idtarea)
+                tareasTotales.removeIf{tarea -> tarea.id == idtarea}
+                tareasDelDocente.removeIf{tarea -> tarea.id == idtarea}
+                adaptadorTarea.notifyDataSetChanged()
+                return true
+            }
+
+            R.id.menu_detalle_tarea ->{
+                //irActividad()
                 return true
             }
 
