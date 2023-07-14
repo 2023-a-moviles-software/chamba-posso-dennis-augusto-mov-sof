@@ -8,6 +8,7 @@ import android.widget.Switch
 import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class editar_tarea : AppCompatActivity() {
 
@@ -49,9 +50,10 @@ class editar_tarea : AppCompatActivity() {
         calificacion.text = tareaSeleccionada.calificacion.toString()
     }
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     fun actualizarTarea(){
         val tareaSeleccionada = ListView_Tareas.tareasDelDocente[idTareaSeleccionada]
-        val formato = SimpleDateFormat("dd/MM/yyyy")
+        val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
         val descripcion = findViewById<TextView>(R.id.txt_descripcion_mod)
         val fecha = findViewById<TextView>(R.id.txt_fecha_mod)
@@ -61,21 +63,21 @@ class editar_tarea : AppCompatActivity() {
 
         BaseDatos.modificarTarea(
             tareaSeleccionada.id,
-            descripcion.toString(),
-            formato.parse(fecha.toString()),
-            Materia.toString(),
+            descripcion.text.toString(),
+            formato.parse(fecha.text.toString()),
+            Materia.text.toString(),
             tareaSeleccionada.CedulaDocente,
-            entrega.isChecked(),
-            calificacion.toString().toDouble()
+            entrega.isChecked,
+            calificacion.text.toString().toDouble()
         )
 
         var nuevaTarea = Tarea(tareaSeleccionada.id,
-            descripcion.toString(),
-            formato.parse(fecha.toString()),
-            Materia.toString(),
+            descripcion.text.toString(),
+            formato.parse(fecha.text.toString()),
+            Materia.text.toString(),
             tareaSeleccionada.CedulaDocente,
-            entrega.isChecked(),
-            calificacion.toString().toDouble())
+            entrega.isChecked,
+            calificacion.text.toString().toDouble())
 
         ListView_Tareas.tareasDelDocente[idTareaSeleccionada] = nuevaTarea
 

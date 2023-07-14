@@ -3,6 +3,7 @@ package com.example.examen
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
@@ -49,10 +50,18 @@ class ListView_Tareas : AppCompatActivity() {
         nombreDocente.text = BaseDatos.arregloDocentes[idDocenteSeleccionado].Nombre
 
         //agregar tarea
-        val botonAgregarTarea = findViewById<Button>(R.id.btn_agregar_tarea)
+        val botonAgregarTarea = findViewById<Button>(R.id.btn_aniadir_tareas)
+
         botonAgregarTarea.setOnClickListener{
             irActividad(crear_tarea::class.java)
         }
+
+        listViewTarea.setOnItemClickListener{
+            parent, view, position, id ->
+            val tareaSeleccionada = adaptadorTarea.getItem(position)
+            irActividad(datosTarea::class.java)
+        }
+
         registerForContextMenu(listViewTarea)
     }
 
@@ -103,11 +112,6 @@ class ListView_Tareas : AppCompatActivity() {
                 return true
             }
 
-            R.id.menu_detalle_tarea ->{
-                //irActividad()
-                return true
-            }
-
             else -> super.onContextItemSelected(item)
         }
     }
@@ -115,7 +119,6 @@ class ListView_Tareas : AppCompatActivity() {
     fun irActividad(
         clase: Class<*>
     ) {
-
         val intent = Intent(this, clase)
         intent.putExtra("idItemSeleccionado", idTareaSeleccionada)
         intent.putExtra("cedulaDocente", cedulaDocente)

@@ -24,11 +24,14 @@ class Docente {
 
 
     fun mostrarHorarioAtencion(): String{
-        var lista: String = ""
-        for (x in Horario_Atencion){
-            lista = lista + ", "+ x
+        val lista = StringBuilder()
+        for (x in Horario_Atencion) {
+            lista.append(", ").append(x)
         }
-        return lista
+        // Eliminamos la coma inicial y los espacios en blanco adicionales
+        val resultado = lista.substring(2).trim()
+
+        return resultado
     }
 
 

@@ -62,7 +62,7 @@
         android:layout_width="245dp"
         android:layout_height="44dp"
         android:ems="10"
-        android:hint="Fecha entrega (dd-mm-aaaa)"
+        android:hint="Fecha entrega (dd/mm/aaaa)"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

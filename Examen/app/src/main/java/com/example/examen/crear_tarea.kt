@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.Switch
 import android.widget.TextView
 import java.text.SimpleDateFormat
+import java.util.Locale
 
 class crear_tarea : AppCompatActivity() {
 
@@ -22,7 +23,7 @@ class crear_tarea : AppCompatActivity() {
         val botonAgregar = findViewById<Button>(R.id.btn_guardar_tarea)
         botonAgregar.setOnClickListener{
 
-            val formato = SimpleDateFormat("dd/MM/yyyy")
+            val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
             val descripcion = findViewById<TextView>(R.id.txt_descripcion)
             val fecha = findViewById<TextView>(R.id.txt_fecha)
@@ -32,17 +33,17 @@ class crear_tarea : AppCompatActivity() {
 
             BaseDatos.agregarTarea(Tarea(
                 BaseDatos.arregloTareas.size+1,
-                descripcion.toString(),
-                formato.parse(fecha.toString()),
-                Materia.toString(),
+                descripcion.text.toString(),
+                formato.parse(fecha.text.toString()),
+                Materia.text.toString(),
                 docenteCedula,
-                entrega.isChecked(),
-                calificacion.toString().toDouble()
+                entrega.isChecked,
+                calificacion.text.toString().toDouble()
             ))
-
             ListView_Tareas.adaptadorTarea.notifyDataSetChanged()
             finish()
         }
+
     }
 
 

@@ -3,9 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_detalle_tarea"
-        android:title="Ver detalles" />
-    <item
         android:id="@+id/menu_editar_tarea"
         android:title="Editar" />
     <item
