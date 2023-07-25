@@ -9,18 +9,18 @@ class ESqliteHelperEntrenador (
     contexto: Context?, //this
 ): SQLiteOpenHelper(
     contexto,
-    "moviles", //nombre bd
+    "Moviles", //nombre bd
     null,
     1
 ) {
-    override fun onCreate(db: SQLiteDatabase?){
+    override fun onCreate(db: SQLiteDatabase){
         val scriptSQLCrearTablaEntrenador = """
             CREATE TABLE ENTRENADOR(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre VARCHAR(50),
-            desscripcion VARCHAR(50))
+            descripcion VARCHAR(50))
         """.trimIndent()
-        db?.execSQL(scriptSQLCrearTablaEntrenador) //ejecuta el script
+        db.execSQL(scriptSQLCrearTablaEntrenador) //ejecuta el script
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion:Int){
@@ -31,59 +31,61 @@ class ESqliteHelperEntrenador (
         nombre: String,
         descripcion: String
     ): Boolean{
-        val  baseDatosEscritura = writableDatabase
+        val  db = this.writableDatabase
         val valoresAGuardar = ContentValues()
         valoresAGuardar.put("nombre", nombre)
         valoresAGuardar.put("descripcion", descripcion)
-        val resultadoGuardar = baseDatosEscritura.insert(
+        val resultadoGuardar = db.insert(
             "ENTRENADOR",  //nombre tabla
             null,
             valoresAGuardar,  // valores
         )
-        baseDatosEscritura.close()
-        return if(resultadoGuardar.toInt() === -1) false else true
+        db.close()
+        return resultadoGuardar.toInt() != -1
     }
 
-    fun eliminarEntrenadorFormulario(id:Int):Boolean{
-        val conexionEscritura = writableDatabase
-        //where id = ?
-        val parametrosConsultaDelete = arrayOf(id.toString())
-        val resultadoEliminacion = conexionEscritura
-            .delete(
-                "Entrenador", // nombre tabla
-                "id =?", //consulta where
-                parametrosConsultaDelete
-            )
-        conexionEscritura.close()
-        return if(resultadoEliminacion.toInt() === -1) false else true
-    }
 
     fun actualizarEntrenadorFormulario(nombre:String, descripcion:String, id:Int):Boolean{
-        val conexionEscritura = writableDatabase
+        val db = this.writableDatabase
         val valoresAActualizar = ContentValues()
         valoresAActualizar.put("nombre", nombre)
         valoresAActualizar.put("descripcion", descripcion)
         //where id = ?
         val parametrosConsultaActualizar = arrayOf(id.toString())
-        val resultadoActualizacion = conexionEscritura
+        val resultadoActualizacion = db
             .update(
-                "Entrenador",  // nombre tabla
+                "ENTRENADOR",  // nombre tabla
                 valoresAActualizar,
                 "id =?", //consulta where
                 parametrosConsultaActualizar
             )
-        conexionEscritura.close()
-        return if(resultadoActualizacion.toInt() === -1) false else true
+        db.close()
+        return resultadoActualizacion.toInt() != -1
+    }
+    fun eliminarEntrenadorFormulario(id:Int):Boolean{
+        val db = this.writableDatabase
+        //where id = ?
+        val parametrosConsultaDelete = arrayOf(id.toString())
+        val resultadoEliminacion = db
+            .delete(
+                "ENTRENADOR", // nombre tabla
+                "id =?", //consulta where
+                parametrosConsultaDelete
+            )
+        db.close()
+        return resultadoEliminacion.toInt() != -1
     }
 
+
+
     fun consultarEntrenadorPorID(id: Int): BEntrenador{
-        val baseDatosLectura = readableDatabase
-        val scrptConsultaLectura = """
+        val db = this.readableDatabase
+        val scriptConsultaLectura = """
             SELECT * FROM ENTRENADOR WHERE ID = ?
         """.trimIndent()
         val parametrosConsultaLectura = arrayOf(id.toString())
-        val resultadoConsultaLectura = baseDatosLectura.rawQuery(
-            scrptConsultaLectura, //Consulta
+        val resultadoConsultaLectura = db.rawQuery(
+            scriptConsultaLectura, //Consulta
             parametrosConsultaLectura, // parametros
         )
         //logica busqueda
@@ -93,18 +95,18 @@ class ESqliteHelperEntrenador (
         if(existeUsuario){
             do{
                 val id = resultadoConsultaLectura.getInt(0)  //indice 0
-                val nombre = resultadoConsultaLectura.getInt(1)
-                val descripcion = resultadoConsultaLectura.getInt(2)
+                val nombre = resultadoConsultaLectura.getString(1)
+                val descripcion = resultadoConsultaLectura.getString(2)
                 if(id != null){
                     //llenar el arreglo con un nuevo entrenador
                     usuarioEncontrado.id = id
-                    usuarioEncontrado.nombre = nombre.toString()
-                    usuarioEncontrado.descripcion = descripcion.toString()
+                    usuarioEncontrado.nombre = nombre
+                    usuarioEncontrado.descripcion = descripcion
                 }
             } while (resultadoConsultaLectura.moveToNext())
         }
         resultadoConsultaLectura.close()
-        baseDatosLectura.close()
+        db.close()
         return usuarioEncontrado
     }
 
