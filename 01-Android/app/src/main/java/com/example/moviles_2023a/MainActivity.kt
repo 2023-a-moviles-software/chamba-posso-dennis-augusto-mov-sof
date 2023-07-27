@@ -116,6 +116,11 @@ class MainActivity : AppCompatActivity() {
         botonSQLite.setOnClickListener{
             irActividad(ECrudEntrenador::class.java)
         }
+
+        val botonMaps = findViewById<Button>(R.id.btn_google_maps)
+        botonMaps.setOnClickListener{
+            irActividad(GGoogleMaps::class.java)
+        }
     }
 
     fun irActividad( clase: Class<*>){
