@@ -87,7 +87,7 @@ class BaseDatosMemoria {
             ),
             Contacto(
                 "Jorge",
-                "https://example.com/jorge.jpg",
+                "https://www.publimetro.pe/resizer/kNXSkrOc8d2SMaRnB1rJ6D_Z7uw=/800x0/filters:format(png):quality(70):focal(263x124:273x134)/cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/PBR6X2WICBEKRLU5SSSE3B3V24.png",
                 mutableListOf<Mensajes>(
                     Mensajes("¡Feliz cumpleaños!", true, "09:00am"),
                     Mensajes("¡Gracias! Estoy emocionado.", false, "09:01am"),
