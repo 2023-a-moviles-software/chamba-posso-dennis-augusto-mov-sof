@@ -5,7 +5,7 @@ class BaseDatosMemoria {
         val contactos = arrayListOf<Contacto>(
             Contacto(
                 "juan",
-                "https://p1.pxfuel.com/preview/914/252/853/young-man-profile-man-dream-boy.jpg",
+                "juan",
                 mutableListOf<Mensajes>(
                     Mensajes("hola", true, "7:19am"),
                     Mensajes("como estas", false,"7:20am"),
