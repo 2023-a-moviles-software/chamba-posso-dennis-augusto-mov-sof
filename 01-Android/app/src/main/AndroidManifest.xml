@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.moviles_2023a">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_Fine_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_Fine_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Moviles_2023A"
         tools:targetApi="31">
+        <activity
+            android:name=".HFirebaseUIAuth"
+            android:exported="false" />
         <activity
             android:name=".GGoogleMaps"
             android:exported="false" />
