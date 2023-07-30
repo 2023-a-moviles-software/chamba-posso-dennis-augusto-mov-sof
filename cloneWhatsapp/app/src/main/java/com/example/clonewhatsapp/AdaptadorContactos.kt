@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 class AdaptadorContactos (
     private val interfazMain: RVContactos,
     private val contactos: ArrayList<Contacto>,
-    private val recyclerView: RecyclerView
+    private val recyclerView: RecyclerView,
+    private val onContactoClickListener: OnContactoClickListener
 ): RecyclerView.Adapter<AdaptadorContactos.MyViewHolder>(){
     inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view){
         val fotoContacto: ImageView
@@ -21,8 +22,6 @@ class AdaptadorContactos (
             fotoContacto = view.findViewById(R.id.img_perfilContacto)
             ultimoMensaje = view.findViewById(R.id.ultimoMensaje)
             nombreDeContacto = view.findViewById(R.id.nombreContacto)
-
-            
         }
     }
 
@@ -46,6 +45,12 @@ class AdaptadorContactos (
         holder.ultimoMensaje.text = contactoActual.mensajes.last().contenido
         holder.nombreDeContacto.text = contactoActual.nombre
 
+        holder.itemView.setOnClickListener{
+            onContactoClickListener.onContactoClick(contactoActual)
+        }
 
+    }
+    interface OnContactoClickListener{
+        fun onContactoClick(contacto: Contacto)
     }
 }

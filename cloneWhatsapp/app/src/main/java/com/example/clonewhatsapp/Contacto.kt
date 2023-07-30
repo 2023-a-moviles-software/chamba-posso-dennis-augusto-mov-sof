@@ -1,7 +1,9 @@
 package com.example.clonewhatsapp
 
+import java.io.Serializable
+
 class Contacto (
     var nombre: String,
     var imagen: String,
-    var mensajes: MutableList<Mensajes>
-)
+    var mensajes: ArrayList<Mensajes>
+): Serializable

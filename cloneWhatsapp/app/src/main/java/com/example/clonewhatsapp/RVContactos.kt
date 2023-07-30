@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 
-class RVContactos : AppCompatActivity(){
+class RVContactos : AppCompatActivity(), AdaptadorContactos.OnContactoClickListener {
 
     val misContactos = BaseDatosMemoria.contactos
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +14,7 @@ class RVContactos : AppCompatActivity(){
 
         val contactosTotales = findViewById<RecyclerView>(R.id.rv_chats)
         inicializar()
+
     }
 
     fun inicializar(){
@@ -23,7 +24,8 @@ class RVContactos : AppCompatActivity(){
         val adaptador = AdaptadorContactos(
             this,
             misContactos,
-            recyclerView
+            recyclerView,
+            this
         )
 
         recyclerView.adapter = adaptador
@@ -32,5 +34,13 @@ class RVContactos : AppCompatActivity(){
         adaptador.notifyDataSetChanged()
     }
 
+    override fun onContactoClick(contacto: Contacto) {
+        // Cuando se haga clic en un contacto, inicia la actividad RVChat y pasa el objeto Contacto como extra
+        val intent = Intent(this, RVChat::class.java)
+        intent.putExtra("CONTACTO_SELECCIONADO", contacto)
+        startActivity(intent)
+    }
 
 }
+
+
