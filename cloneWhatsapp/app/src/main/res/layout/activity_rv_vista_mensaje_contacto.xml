@@ -4,23 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RV_Vista_Mensaje">
+    tools:context=".rv_vista_mensaje_contacto">
 
     <TextView
-        android:id="@+id/mensajeEnviado"
+        android:id="@+id/mensajeResivido"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/background_sent_message"
-        android:padding="12dp"
+        android:background="@drawable/background_resived_message"
+        android:padding="18dp"
         android:text="asdasdadasda"
         android:textColor="#070505"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

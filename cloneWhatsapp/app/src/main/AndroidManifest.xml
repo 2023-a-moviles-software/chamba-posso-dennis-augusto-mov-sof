@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CloneWhatsapp"
         tools:targetApi="31">
         <activity
+            android:name=".rv_vista_mensaje_contacto"
+            android:exported="false" />
+        <activity
             android:name=".RV_Vista_Mensaje"
             android:exported="false" />
         <activity
