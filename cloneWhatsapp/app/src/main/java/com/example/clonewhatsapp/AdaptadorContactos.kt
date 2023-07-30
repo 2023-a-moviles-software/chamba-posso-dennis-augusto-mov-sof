@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class AdaptadorContactos (
     private val interfazMain: RVContactos,
@@ -42,6 +43,12 @@ class AdaptadorContactos (
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val contactoActual = this.contactos[position]
         //holder.fotoContacto.setImageResource()
+
+        // Cargar la imagen desde la URL utilizando Glide
+        Glide.with(holder.itemView.context)
+            .load(contactoActual.imagen)
+            .into(holder.fotoContacto)
+
         holder.ultimoMensaje.text = contactoActual.mensajes.last().contenido
         holder.nombreDeContacto.text = contactoActual.nombre
 
