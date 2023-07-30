@@ -7,7 +7,7 @@
     tools:context=".RV_Vista_Mensaje">
 
     <TextView
-        android:id="@+id/mensajeEnviado"
+        android:id="@+id/mensajeChat"
         android:layout_width="329dp"
         android:layout_height="54dp"
         android:layout_marginTop="16dp"
@@ -22,18 +22,18 @@
         app:layout_constraintWidth_percent="0.8" />
 
     <TextView
-        android:id="@+id/horaEnvio"
+        android:id="@+id/horaMensaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="2dp"
         android:text="00:00am"
         android:textColor="#803E3C3C"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/mensajeEnviado"
-        app:layout_constraintEnd_toEndOf="@+id/mensajeEnviado"
+        app:layout_constraintBottom_toBottomOf="@+id/mensajeChat"
+        app:layout_constraintEnd_toEndOf="@+id/mensajeChat"
         app:layout_constraintHorizontal_bias="0.848"
-        app:layout_constraintStart_toStartOf="@+id/mensajeEnviado"
-        app:layout_constraintTop_toTopOf="@+id/mensajeEnviado"
+        app:layout_constraintStart_toStartOf="@+id/mensajeChat"
+        app:layout_constraintTop_toTopOf="@+id/mensajeChat"
         app:layout_constraintVertical_bias="1.0" />
 
 

@@ -21,6 +21,8 @@ class AdaptadorContactos (
             fotoContacto = view.findViewById(R.id.img_perfilContacto)
             ultimoMensaje = view.findViewById(R.id.ultimoMensaje)
             nombreDeContacto = view.findViewById(R.id.nombreContacto)
+
+            
         }
     }
 
@@ -43,5 +45,7 @@ class AdaptadorContactos (
         //holder.fotoContacto.setImageResource()
         holder.ultimoMensaje.text = contactoActual.mensajes.last().contenido
         holder.nombreDeContacto.text = contactoActual.nombre
+
+
     }
 }

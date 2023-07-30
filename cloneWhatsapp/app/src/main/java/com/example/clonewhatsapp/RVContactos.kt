@@ -1,10 +1,11 @@
 package com.example.clonewhatsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 
-class RVContactos : AppCompatActivity() {
+class RVContactos : AppCompatActivity(){
 
     val misContactos = BaseDatosMemoria.contactos
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,4 +31,6 @@ class RVContactos : AppCompatActivity() {
         recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         adaptador.notifyDataSetChanged()
     }
+
+
 }
