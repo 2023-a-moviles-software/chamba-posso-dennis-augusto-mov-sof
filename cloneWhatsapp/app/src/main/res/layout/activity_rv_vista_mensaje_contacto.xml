@@ -21,4 +21,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8" />
 
+    <TextView
+        android:id="@+id/horaRecivido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:text="00:00am"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/mensajeResivido"
+        app:layout_constraintEnd_toEndOf="@+id/mensajeResivido"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="@+id/mensajeResivido"
+        app:layout_constraintTop_toTopOf="@+id/mensajeResivido"
+        app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

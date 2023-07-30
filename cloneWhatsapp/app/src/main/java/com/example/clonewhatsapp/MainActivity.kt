@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             imagen.setImageResource(R.drawable.despues)
 
             Handler().postDelayed({
-                //irActividad(::class.java)
+                irActividad(RVContactos::class.java)
             }, 1000)
         }
     }

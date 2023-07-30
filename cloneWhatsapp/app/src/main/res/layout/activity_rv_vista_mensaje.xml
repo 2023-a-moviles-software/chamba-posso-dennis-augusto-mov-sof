@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/mensajeEnviado"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="329dp"
+        android:layout_height="54dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/background_sent_message"
@@ -20,6 +20,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8" />
+
+    <TextView
+        android:id="@+id/horaEnvio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:text="00:00am"
+        android:textColor="#803E3C3C"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/mensajeEnviado"
+        app:layout_constraintEnd_toEndOf="@+id/mensajeEnviado"
+        app:layout_constraintHorizontal_bias="0.848"
+        app:layout_constraintStart_toStartOf="@+id/mensajeEnviado"
+        app:layout_constraintTop_toTopOf="@+id/mensajeEnviado"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
