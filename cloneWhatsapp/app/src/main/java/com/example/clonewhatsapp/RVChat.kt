@@ -3,6 +3,7 @@ package com.example.clonewhatsapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class RVChat : AppCompatActivity() {
@@ -13,6 +14,7 @@ class RVChat : AppCompatActivity() {
         setContentView(R.layout.activity_rvchat)
         contactoSeleccionado = intent.getSerializableExtra("CONTACTO_SELECCIONADO") as? Contacto
         val mensajesChat = findViewById<RecyclerView>(R.id.rv_contactos)
+        findViewById<TextView>(R.id.contactoNombre).text = contactoSeleccionado?.nombre
         inicializar()
     }
 

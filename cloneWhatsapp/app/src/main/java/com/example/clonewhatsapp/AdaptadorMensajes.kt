@@ -9,35 +9,33 @@ import androidx.recyclerview.widget.RecyclerView
 class AdaptadorMensajes (
     private val interfazChat: RVChat,
     private val mensajes: ArrayList<Mensajes>,
-    private val recyclerView: RecyclerView,
-    private var esRecivido: Int = 0
+    private val recyclerView: RecyclerView
 ): RecyclerView.Adapter<AdaptadorMensajes.MyViewHolderMensajes>(){
+
+    // Define una constante para indicar si el mensaje es del usuario actual
+    private val ES_MIO = 1
+    private val ES_OTRO = 2
 
     inner class MyViewHolderMensajes(view: View): RecyclerView.ViewHolder(view){
         val mensaje: TextView
         val hora: TextView
 
         init{
-            if(view.findViewById<TextView>(R.id.mensajeChat) != null){
-                mensaje = view.findViewById<TextView>(R.id.mensajeChat)
-                hora = view.findViewById<TextView>(R.id.horaMensaje)
-            }else{
-                mensaje = view.findViewById<TextView>(R.id.mensajeResivido)
-                hora = view.findViewById<TextView>(R.id.horaRecivido)
-                esRecivido = 1
-            }
+
+            mensaje = view.findViewById<TextView>(R.id.mensajeChat)
+            hora = view.findViewById<TextView>(R.id.horaMensaje)
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolderMensajes {
-        var itemView:View
-        if(esRecivido == 0){
-            itemView = LayoutInflater.from(parent.context).inflate(
+        var itemView = if(viewType == ES_MIO){
+            LayoutInflater.from(parent.context).inflate(
                 R.layout.activity_rv_vista_mensaje,
                 parent,
                 false)
         }else{
-            itemView = LayoutInflater.from(parent.context).inflate(
+            LayoutInflater.from(parent.context).inflate(
                 R.layout.activity_rv_vista_mensaje_contacto,
                 parent,
                 false)
@@ -54,5 +52,14 @@ class AdaptadorMensajes (
         val mensajeActual = this.mensajes[position]
         holder.mensaje.text = mensajeActual.contenido
         holder.hora.text = mensajeActual.hora
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        val mensajeActual = mensajes[position]
+        return if (mensajeActual.esMio) {
+            ES_MIO
+        } else {
+            ES_OTRO
+        }
     }
 }
