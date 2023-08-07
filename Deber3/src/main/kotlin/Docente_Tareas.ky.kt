@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.HashMap
 
-class Docente{
+class Docente1{
     private val Nombre: String;
     private val Cedula: String;
     private val Numero_Oficina: Int;
@@ -65,61 +65,7 @@ class Docente{
     }
 }
 
-class Tarea{
-    private val Descripcion: String;
-    private val Fecha_Entrega: Date;
-    private val Materia: String;
-    private val CedulaDocente: String;
-    private var Entregado: Boolean;
-    private var Calificacion: Double;
 
-    constructor(Descripcion: String,
-                Fecha: Date,
-                Materia: String,
-                Docente: String,
-                Entregado: Boolean,
-                Calificacion: Double
-    ){
-        this.Descripcion = Descripcion;
-        this.Fecha_Entrega = Fecha;
-        this.Materia = Materia;
-        this.CedulaDocente = Docente;
-        this.Entregado = Entregado;
-        this.Calificacion = Calificacion;
-    }
-
-    fun getDescripcion(): String{
-        return Descripcion
-    }
-    fun getFechaEntrega(): Date {
-        return Fecha_Entrega
-    }
-
-    fun getMateria(): kotlin.String {
-        return Materia
-    }
-
-    fun getDocente(): String {
-        return CedulaDocente
-    }
-
-    fun isEntregado(): Boolean {
-        return Entregado
-    }
-
-    fun getCalificacion(): Double {
-        return Calificacion
-    }
-
-    fun retornarInformacion(): String {
-        return "\tFecha: ${this.getFechaEntrega()}\n" +
-                "\tDescripcion: ${this.getDescripcion()}\n" +
-                "\tMateria: ${this.getMateria()}\n" +
-                "\tDocente: ${buscarDocentePorCedula(this.getDocente())?.getNombre()}\n" +
-                "\tEstado: ${this.isEntregado()}\n" +
-                "\tCalificacion: ${this.getCalificacion()}"
-    }
-}
 
 fun construirHashMapDesdeString(str: String): HashMap<String, String> {
     val hashMap = HashMap<String, String>()

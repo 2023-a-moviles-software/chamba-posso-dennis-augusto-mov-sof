@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.IdpResponse
@@ -31,6 +32,16 @@ class HFirebaseUIAuth : AppCompatActivity() {
         val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
         btnLogout.setOnClickListener{seDeslogeo()}
 
+        val usuario = FirebaseAuth.getInstance().currentUser
+        if(usuario != null){
+            val tvBienvenido = findViewById<TextView>(R.id.tv_bienvenido)
+            val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
+            val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
+            btnLogin.visibility = View.VISIBLE
+            btnLogout.visibility = View.INVISIBLE
+            tvBienvenido.text = FirebaseAuth.getInstance().currentUser?.displayName
+        }
+
     }
 
     //callback del intent de login
@@ -48,18 +59,29 @@ class HFirebaseUIAuth : AppCompatActivity() {
     fun seLogeo(res: IdpResponse){
         val btnLogin: Button = findViewById<Button>(R.id.btn_login_firebase)
         val btnLogout: Button = findViewById<Button>(R.id.btn_logout_firebase)
+
+        val tvBienvenido = findViewById<TextView>(R.id.tv_bienvenido)
+        tvBienvenido.text = FirebaseAuth.getInstance().currentUser?.displayName
+
         btnLogout.visibility = View.VISIBLE
         btnLogin.visibility = View.INVISIBLE
         if(res.isNewUser == true){
-            //registrarUsuarioPorPrimeraVez(res)
+            registrarUsuarioPorPrimeraVez(res)
         }
     }
+
+    fun registrarUsuarioPorPrimeraVez(usuario: IdpResponse){ /* usuario.email; usuario.phoneNumber; usuario.user.name;*/  }
 
     fun seDeslogeo(){
         val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
         val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
         btnLogout.visibility = View.INVISIBLE
         btnLogin.visibility = View.VISIBLE
+
+        val tvBienvenido = findViewById<TextView>(R.id.tv_bienvenido)
+        tvBienvenido.text = "Bienvenido"
+
         FirebaseAuth.getInstance().signOut()
+
     }
 }
