@@ -1,3 +1,5 @@
+
+
 plugins {
     kotlin("jvm") version "1.8.21"
     application
@@ -11,7 +13,9 @@ repositories {
 }
 
 dependencies {
+    implementation("org.xerial:sqlite-jdbc:3.34.0")
     testImplementation(kotlin("test"))
+
 }
 
 tasks.test {

@@ -79,22 +79,7 @@ fun construirHashMapDesdeString(str: String): HashMap<String, String> {
     return hashMap
 }
 
-fun validarCedula(cedula: String): Boolean {
-    var total = 0
-    for (x in 0 until 9) {
-        if ((x + 1) % 2 == 0) {
-            total += cedula[x].toString().toInt()
-        } else {
-            var producto = cedula[x].toString().toInt() * 2
-            if (producto >= 10) {
-                producto -= 9
-            }
-            total += producto
-        }
-    }
-    val digitoVerificador = buscarDecenaSuperior(total) - total
-    return digitoVerificador == cedula[9].toString().toInt()
-}
+
 
 fun buscarDecenaSuperior(numero: Int): Int {
     var decena = 10
@@ -105,35 +90,7 @@ fun buscarDecenaSuperior(numero: Int): Int {
 }
 
 
-// Función para guardar un docente en un archivo
-fun guardarDocenteEnArchivo(docente: Docente, nombreArchivo: String) {
-    var contenido = "${docente.getNombre()}," +
-            "${docente.getCedula()}," +
-            "${docente.getNumeroOficina()}," +
-            "${docente.getFacultad()}," +
-            "${docente.horarioEnString()}"
-
-    contenido += "\n"
-    File(nombreArchivo).appendText("$contenido")
-}
-
 // Función para recuperar los docentes desde un archivo
-fun recuperarDocentesDesdeArchivo(nombreArchivo: String): List<Docente> {
-    val docentes = mutableListOf<Docente>()
-    val lineas = File(nombreArchivo).readLines()
-
-    for (linea in lineas) {
-        val datos = linea.split(",")
-        val nombre = datos[0]
-        val cedula = datos[1]
-        val numeroOficina = datos[2].toInt()
-        val facultad = datos[3]
-        val consulta = datos[4]
-        val docente = Docente(nombre, cedula, numeroOficina, construirHashMapDesdeString(consulta), facultad)
-        docentes.add(docente)
-    }
-    return docentes
-}
 
 fun recuperarNombresCedulasDocentes(nombreArchivo: kotlin.String): List<kotlin.String>{
     val NombresDocentes = mutableListOf<kotlin.String>()
@@ -159,55 +116,14 @@ fun buscarCedulaEnDocentes(cedula: kotlin.String): Boolean{
     return CedulasDocentes.contains(cedula)
 }
 
-fun buscarDocentePorCedula(cedula: kotlin.String): Docente?{
-    val lineas = File("Docentes.txt").readLines()
-    for (linea in lineas) {
-        val datos = linea.split(",")
-        if (datos[1] == cedula){
-            val nombre = datos[0]
-            val cedula = datos[1]
-            val numeroOficina = datos[2].toInt()
-            val facultad = datos[3]
-            val consulta = datos[4]
-            return Docente(nombre, cedula, numeroOficina, construirHashMapDesdeString(consulta), facultad)
-        }
-    }
-    return null
-}
 
 // funciones para tareas
 
 // Función para guardar un tareas en un archivo
-fun guardarTareasEnArchivo(tarea: Tarea, nombreArchivo: String) {
-    var contenido = "${tarea.getDescripcion()}," +
-            "${convertirFormatoFecha(tarea.getFechaEntrega())}," +
-            "${tarea.getMateria()}," +
-            "${tarea.getDocente()}," +
-            "${tarea.isEntregado()}," +
-            "${tarea.getCalificacion()}"
-    contenido += "\n"
-    File(nombreArchivo).appendText("$contenido")
-}
+
 
 // Función para recuperar los docentes desde un archivo
-fun recuperarTareasDesdeArchivo(nombreArchivo: String): List<Tarea> {
-    val tareas = mutableListOf<Tarea>()
-    val lineas = File(nombreArchivo).readLines()
 
-    for (linea in lineas) {
-        val datos = linea.split(",")
-
-        val descripcion = datos[0]
-        val fecha = convertirStringAFecha(datos[1])
-        val materia = datos[2]
-        val cedulaDocente = datos[3]
-        val entregado = datos[4].toBoolean()
-        val calificacion = datos[5].toDouble()
-        val tarea = Tarea(descripcion,fecha, materia, cedulaDocente, entregado, calificacion)
-        tareas.add(tarea)
-    }
-    return tareas
-}
 
 fun convertirFormatoFecha(fechaOriginal: Date): LocalDate {
     val formatoDeseado = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)

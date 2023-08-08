@@ -1,7 +1,41 @@
 import java.io.File
 import java.text.SimpleDateFormat
 
+
+fun mostrarInfoTarea(t:Tarea, base: SQLite){
+    println("${t.idTarea}) ${t.descripcion}\n" +
+            "Docente: ${base.consultarDocentePorCedula(t.ciDocente)?.nombre} - ${t.ciDocente}\n" +
+            "Fecha: ${t.fechaEntrega}\n" +
+            "Materia: ${t.materia}\n" +
+            "Entregado: ${if(t.entregado) "si" else "no"}\n" +
+            "Nota: ${t.nota}")
+}
+fun mostrarInfoDocente(d:Docente){
+    println("${d.nombre})\n" +
+            "Cedula: ${d.ciDocente}\n" +
+            "N° Oficina: ${d.numeroOficina}\n" +
+            "Facultad: ${d.facultad}\n" +
+            "Tutorias: ${d.horarioAtencion}\n")
+}
+fun validarCedula(cedula: String): Boolean {
+    var total = 0
+    for (x in 0 until 9) {
+        if ((x + 1) % 2 == 0) {
+            total += cedula[x].toString().toInt()
+        } else {
+            var producto = cedula[x].toString().toInt() * 2
+            if (producto >= 10) {
+                producto -= 9
+            }
+            total += producto
+        }
+    }
+    val digitoVerificador = buscarDecenaSuperior(total) - total
+    return digitoVerificador == cedula[9].toString().toInt()
+}
 fun main(args: Array<String>) {
+    val BaseDatos = SQLite()
+    BaseDatos.createTable()
     while (true){
 
         println("--- Sistema Gestor de Tareas ---");
@@ -11,7 +45,7 @@ fun main(args: Array<String>) {
         println("4. Ingresar docentes")
         println("5. Salir")
         print("Eleccion: ")
-        var eleccion: kotlin.String? = readLine();
+        var eleccion: String? = readLine();
 
         when (eleccion){
             "1" -> {
@@ -19,12 +53,9 @@ fun main(args: Array<String>) {
                 println("                Historial de tareas                   ")
                 println("------------------------------------------------------")
 
-                var tareasRecuperadas = recuperarTareasDesdeArchivo("Tareas.txt").toMutableList()
-                var contador = 1
+                var tareasRecuperadas = BaseDatos.consultarTodosLasTareas()
                 for (tarea in tareasRecuperadas){
-                    println("Tarea ${contador}): ")
-                    println(tarea.retornarInformacion())
-                    contador++;
+                    mostrarInfoTarea(tarea, BaseDatos)
                 }
                 print("¿Deseas modificar alguna entrega? (si/no): ")
                 var modificar = readln()
@@ -32,7 +63,8 @@ fun main(args: Array<String>) {
                 if (modificar == "si"){
                     print("Ingrese el numero de la tarea: ")
                     var numeroTarea: Int = readln().toInt()
-                    println(tareasRecuperadas[numeroTarea-1].retornarInformacion())
+
+                    BaseDatos.consultarTareaPorId(numeroTarea)?.let { mostrarInfoTarea(it, BaseDatos) }
 
                     println("----- Ingreso de cambios ----")
 
@@ -40,15 +72,19 @@ fun main(args: Array<String>) {
                     var descripcion: String = readln()
 
                     print("Fecha (yyyy-mm-dd): ")
-                    var fechaSinFormato = readln()
-                    val formato = SimpleDateFormat("yyyy-MM-dd")
-                    var fecha = formato.parse(fechaSinFormato)
+                    var fecha = readln()
 
                     print("Materia: ")
                     var materia:String = readln()
 
-                    print("Docentes disponibles: ")
-                    print(recuperarNombresCedulasDocentes("Docentes.txt"))
+                    println("Docentes disponibles: ")
+
+                    val docentes = BaseDatos.consultarTodosLosDocentes()
+                    for (docente in docentes){
+                        println("------------------------------------")
+                        mostrarInfoDocente(docente)
+                    }
+
                     print("Numero de cedula del docente: ")
 
                     var numeroCedula: String = ""
@@ -64,26 +100,33 @@ fun main(args: Array<String>) {
                             println("Ingrese una cedula valida")
                             continue
                         }
-                    }while(!buscarCedulaEnDocentes(numeroCedula))
+                    }while(BaseDatos.consultarDocentePorCedula(numeroCedula) == null)
 
                     print("¿Entregado?: ")
                     var estado: String = readln()
-                    var isEntregado: Boolean = true
+                    var isEntregado: Int = 1
                     if (estado == "no"){
-                        isEntregado = false
+                        isEntregado = 0
                     }
 
                     print("Califiacion: ")
                     var nota: Double = readln().toDouble()
 
-                    var tarea1 = Tarea(descripcion, fecha, materia, numeroCedula, isEntregado, nota )
-                    tareasRecuperadas[numeroTarea-1] = tarea1
+                    val actualizacion = BaseDatos.actualizarTarea(
+                        numeroTarea,
+                        numeroCedula,
+                        fecha,
+                        materia,
+                        isEntregado,
+                        nota,
+                        descripcion
+                    )
 
-                    File("Tareas.txt").writeText("")
-                    for (tarea in tareasRecuperadas){
-                        guardarTareasEnArchivo(tarea, "Tareas.txt")
+                    if(actualizacion){
+                        println("Modificacion completa")
+                    }else{
+                        println("Ocurrio Algo")
                     }
-                    println("Modificacion completa")
                 }
 
                 print("¿Deseas eliminar alguna entrega? (si/no): ")
@@ -92,14 +135,15 @@ fun main(args: Array<String>) {
                 if (eliminar == "si"){
                     print("Ingrese el numero de la tarea: ")
                     var numeroTarea: Int = readln().toInt()
-                    println(tareasRecuperadas[numeroTarea-1].retornarInformacion())
-                    tareasRecuperadas.removeAt(numeroTarea-1)
 
-                    File("Tareas.txt").writeText("")
-                    for (tarea in tareasRecuperadas){
-                        guardarTareasEnArchivo(tarea, "Tareas.txt")
+                    BaseDatos.consultarTareaPorId(numeroTarea)?.let { mostrarInfoTarea(it, BaseDatos) }
+
+                    val resultadoEliminacion = BaseDatos.eliminarTareaPorId(numeroTarea)
+                    if (resultadoEliminacion){
+                        println("Eliminado con exito")
+                    }else{
+                        println("Ocurrio Algo")
                     }
-
                 }
 
             }
@@ -107,10 +151,10 @@ fun main(args: Array<String>) {
                 println("------------------------------------------------------")
                 println("                Docentes Ingresados                   ")
                 println("------------------------------------------------------")
-                var docentesRecuperados = recuperarDocentesDesdeArchivo("Docentes.txt")
+                var docentesRecuperados = BaseDatos.consultarTodosLosDocentes()
 
                 for (docente in docentesRecuperados){
-                    println(docente.retornarInformacion())
+                    mostrarInfoDocente(docente)
                 }
             }
             "3" -> {
@@ -118,50 +162,60 @@ fun main(args: Array<String>) {
                 var descripcion: String = readln()
 
                 print("Fecha (yyyy-mm-dd): ")
-                var fechaSinFormato = readln()
-                val formato = SimpleDateFormat("yyyy-MM-dd")
-                var fecha = formato.parse(fechaSinFormato)
+                var fecha = readln()
 
                 print("Materia: ")
                 var materia:String = readln()
 
-                print("Docentes disponibles:\n ")
-                print(recuperarNombresCedulasDocentes("Docentes.txt"))
-                println("")
+                print("Docentes disponibles: ")
+
+                val docentes = BaseDatos.consultarTodosLosDocentes()
+                for (docente in docentes){
+                    println("------------------------------------")
+                    mostrarInfoDocente(docente)
+                }
+
+                print("Numero de cedula del docente: ")
+
                 var numeroCedula: String = ""
-                var validarCedula: Boolean
                 do{
-                    validarCedula = true
-                    print("Numero de cedula del docente: ")
                     numeroCedula= readln()
                     if(!numeroCedula.matches(Regex("\\d+"))){ //validar que solo tenga numeros
                         println("La cedula solo debe contener numeros")
-                        validarCedula = false
-
+                        continue
                     }else if(numeroCedula.length != 10){ //validar que tenga 10 caracteres
                         println("La cedula debe estar compuesta por 10 numeros")
-                        validarCedula = false
-
+                        continue
                     }else if(!validarCedula(numeroCedula)){ //validad que la cedula sea valida
                         println("Ingrese una cedula valida")
-                        validarCedula = false
-                    }else if(!buscarCedulaEnDocentes(numeroCedula)){
-                        println("El numero de cedula debe pertenecer a algun docente")
+                        continue
                     }
-                }while(!buscarCedulaEnDocentes(numeroCedula) or !validarCedula)
+                }while(BaseDatos.consultarDocentePorCedula(numeroCedula) == null)
 
                 print("¿Entregado?: ")
                 var estado: String = readln()
-                var isEntregado: Boolean = true
+                var isEntregado: Int = 1
                 if (estado == "no"){
-                    isEntregado = false
+                    isEntregado = 0
                 }
 
                 print("Califiacion: ")
                 var nota: Double = readln().toDouble()
 
-                var tarea1 = Tarea(descripcion, fecha, materia, numeroCedula, isEntregado, nota )
-                guardarTareasEnArchivo(tarea1, "Tareas.txt")
+                val creacion = BaseDatos.crearTarea(
+                    numeroCedula,
+                    fecha,
+                    materia,
+                    isEntregado,
+                    nota,
+                    descripcion
+                )
+
+                if(creacion){
+                    println("Tarea creada")
+                }else{
+                    println("Ocurrio Algo")
+                }
 
             }
             "4" -> {
@@ -186,7 +240,7 @@ fun main(args: Array<String>) {
                         cedulaValida = false;
                         println("Ingrese una cedula valida")
 
-                    }else if(buscarCedulaEnDocentes(cedula_Docente)){ //validar que la cedula no este en el sistema
+                    }else if(BaseDatos.consultarDocentePorCedula(cedula_Docente) != null){ //validar que la cedula no este en el sistema
                         cedulaValida = false;
                         println("La cedula ya ha sido ingresada en el sistema");
                     }
@@ -195,26 +249,30 @@ fun main(args: Array<String>) {
                 }while(!cedulaValida)
 
                 print("Facultad: ")
-                var facultad: kotlin.String = readln()
+                var facultad: String = readln()
 
                 print("Numero de oficina: ")
                 var oficina: Int = readln().toInt();
 
-                val horarioAtencion = HashMap<kotlin.String, kotlin.String>()
+                var horarioAtencion = ""
                 println("Dias de consulta")
                 do{
                     print("\tDia: ")
-                    var dia: kotlin.String = readln();
+                    var dia: String = readln();
                     print("\tHora (HH:mm): ");
-                    horarioAtencion[dia] = readln();
+                    var hora: String = readln()
+                    horarioAtencion += "${dia} -> ${hora}; "
 
                     print("Agregar dia extra (s/n): ")
-                    var continuar: kotlin.String = readln();
+                    var continuar: String = readln();
                 }while(continuar == "s")
 
-                var d1 = Docente(nombre_Docente, cedula_Docente, oficina, horarioAtencion, facultad);
-                guardarDocenteEnArchivo(d1, "Docentes.txt")
-                println("Docente guardado con exito")
+                var resultadoCreacion = BaseDatos.crearDocente(cedula_Docente, nombre_Docente, oficina, facultad, horarioAtencion);
+                if (resultadoCreacion){
+                    println("Docente guardado con exito")
+                }else{
+                    println("Ocurrio algo")
+                }
 
             }
             "5" -> {

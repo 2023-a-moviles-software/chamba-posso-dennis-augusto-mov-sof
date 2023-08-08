@@ -1,6 +1,6 @@
 import java.util.*
 
-class Tarea{
+class Tarea2{
     private val Descripcion: String;
     private val Fecha_Entrega: Date;
     private val Materia: String;
