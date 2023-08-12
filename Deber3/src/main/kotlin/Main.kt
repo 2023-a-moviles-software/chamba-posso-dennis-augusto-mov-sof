@@ -1,6 +1,13 @@
 import java.io.File
 import java.text.SimpleDateFormat
 
+fun buscarDecenaSuperior(numero: Int): Int {
+    var decena = 10
+    while (decena < numero) {
+        decena += 10
+    }
+    return decena
+}
 
 fun mostrarInfoTarea(t:Tarea, base: SQLite){
     println("${t.idTarea}) ${t.descripcion}\n" +

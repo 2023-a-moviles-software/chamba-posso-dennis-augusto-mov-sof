@@ -19,7 +19,6 @@ data class Tarea(
     val entregado: Boolean,
     val nota: Double,
     val descripcion: String
-
 )
 
 class SQLite(){
