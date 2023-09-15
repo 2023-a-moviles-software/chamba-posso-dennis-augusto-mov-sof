@@ -1,5 +1,6 @@
 package com.example.examen
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -30,24 +31,16 @@ class crear_docente : AppCompatActivity() {
                 nombre.text.toString(),
                 cedula.text.toString(),
                 oficina.text.toString().toInt(),
-                tutorias.text.toString().split(",").toTypedArray(),
+                tutorias.text.toString().split(","),
                 facultad.text.toString()
             )
         )
 
-        if (!verificar){
-            val alertDialogBuilder = AlertDialog.Builder(this)
-            alertDialogBuilder.setMessage("Cédula ya ingresada")
-            alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-            }
-            val alertDialog = alertDialogBuilder.create()
-            alertDialog.show()
-        }else{
-            adaptador.notifyDataSetChanged()
-            finish()
-        }
 
+        adaptador.notifyDataSetChanged()
+
+        val intent = Intent(this, ListView_Docentes::class.java)
+        startActivity(intent)
 
     }
 

@@ -1,131 +1,145 @@
 package com.example.examen
 
-import java.text.SimpleDateFormat
-import java.util.Date
-
+import android.annotation.SuppressLint
+import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 
 class BaseDatos {
     companion object{
-        val arregloDocentes = mutableListOf<Docente>(
-            Docente(
-                "Juan Perez",
-                "1725661183",
-                15,
-                arrayOf("lunes -> 13:00"),
-                "Matematicas"),
-            Docente(
-                "Lucia Hernandez",
-                "1714176813",
-                62,
-                arrayOf("martes -> 14:00", "jueves -> 11:00"),
-                "Sistemas"),
-        )
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
-        val fechaEntrega = dateFormat.parse("01-02-2023")
 
-        val arregloTareas = mutableListOf<Tarea>(
-            Tarea(
-                1,
-                "Mapa mental",
-                fechaEntrega,
-                "Probabilidad y estadistica",
-                arregloDocentes[0].Cedula,
-                false,
-                0.0)
-        )
+        private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+        private val docentesCollection = db.collection("docentes")
+        private val tareasCollection = db.collection("tarea")
+
+        var arregloDocentes = mutableListOf<Docente>()
+        var arregloTareas = mutableListOf<Tarea>()
+
+        suspend fun mostrarDocentes(): MutableList<Docente> {
+            arregloDocentes = mutableListOf<Docente>()
+
+            try{
+                val querySnapshot = docentesCollection.get().await()
+
+                if(!querySnapshot.isEmpty){
+                    for (document in querySnapshot){
+                        val horarioAtencionList = document.get("horario_Atencion") as? List<String>
+                        arregloDocentes.add(
+                            Docente(
+                                document.getString("nombre")?:"",
+                                document.getString("cedula")?: "",
+                                document.getLong("numero_Oficina")?.toInt()?: 0,
+                                horarioAtencionList?: emptyList(),
+                                document.getString("facultad")?:""
+
+                            )
+                        )
+                    }
+                }
 
 
-        //buscar docentes
-        fun buscarDocente(cedula: String): Docente? {
-            return arregloDocentes.find{ it.Cedula == cedula }
+            }catch (e: Exception){}
+            return arregloDocentes
         }
-        //buscar tareas
-        fun buscarTareas(id: Int): Tarea? {
-            return arregloTareas.find{it.id == id}
+
+        suspend fun mostrarTareas(): MutableList<Tarea> {
+            val arregloTareas = mutableListOf<Tarea>()
+
+            try{
+                val querySnapshot = tareasCollection.get().await()
+
+                if(!querySnapshot.isEmpty){
+                    for (document in querySnapshot){
+                        arregloTareas.add(
+                            Tarea(
+                                document.getString("id")?:"",
+                                document.getString("descripcion")?: "",
+                                document.getString("fecha_Entrega")?: "",
+                                document.getString("materia")?: "",
+                                document.getString("cedulaDocente")?: "",
+                                document.getBoolean("entregado")?: false,
+                                document.getLong("calificacion")?.toDouble()?:0.0
+                            )
+                        )
+                    }
+                }
+
+
+            }catch (e: Exception){
+                Log.e("mostrarTareas", "Error al recuperar las tareas", e)
+            }
+            return arregloTareas
         }
+
 
         //eliminar docente
-        fun eliminarDocente(cedula: String): Boolean{
-            val docenteBuscado = buscarDocente(cedula)
-            if(docenteBuscado != null){
-                val indice = arregloDocentes.indexOf(docenteBuscado)
-                arregloDocentes.remove(docenteBuscado)
-                return true
-            }
-            return false
+        fun eliminarDocente(cedula: String): Boolean {
+            docentesCollection
+                .document(cedula)
+                .delete()
+                .addOnSuccessListener {}
+                .addOnFailureListener { e ->                }
+            return true
         }
 
         //eliminar tarea
-        fun eliminarTarea(id: Int): Boolean{
-            val tareaBuscada = buscarTareas(id)
-            if(tareaBuscada != null){
-                val indice = arregloTareas.indexOf(tareaBuscada)
-                arregloTareas.remove(tareaBuscada)
-                return true
-            }
-            return false
+        fun eliminarTarea(id: String): Boolean{
+            tareasCollection
+                .document(id)
+                .delete()
+                .addOnSuccessListener {}
+                .addOnFailureListener { e ->                }
+            return true
         }
 
         //modificar docente
-        fun modificarDocente(
-            nombre: String,
-            cedula: String,
-            oficina: Int,
-            Horario: Array<String>,
-            Facultad: String): Boolean{
-            val docenteBuscado = buscarDocente(cedula)
-            if(docenteBuscado != null){
-                val indice = arregloDocentes.indexOf(docenteBuscado)
-                arregloDocentes[indice].Cedula = cedula
-                arregloDocentes[indice].Nombre = nombre
-                arregloDocentes[indice].Numero_Oficina = oficina
-                arregloDocentes[indice].Horario_Atencion = Horario
-                arregloDocentes[indice].Facultad = Facultad
-                return true
-            }
-            return false
+
+        fun modificarDocente(docenteModificado: Docente): Boolean {
+            val cedula = docenteModificado.Cedula
+
+                // Actualiza el docente en Firestore
+            docentesCollection
+                    .document(cedula)
+                    .set(docenteModificado)
+                    .addOnSuccessListener { }
+                    .addOnFailureListener { e -> }
+
+
+            return true
         }
 
+
         //modificar tarea
-        fun modificarTarea(
-            id: Int,
-            descripcion: String,
-            fechaEntrega: Date,
-            Materia: String,
-            CedulaDocente: String,
-            Entregado: Boolean,
-            calificacion: Double): Boolean{
-            val tareaBuscada = buscarTareas(id)
-            if(tareaBuscada != null){
-                val indice = arregloTareas.indexOf(tareaBuscada)
-                arregloTareas[indice].id = id
-                arregloTareas[indice].Descripcion = descripcion
-                arregloTareas[indice].Fecha_Entrega = fechaEntrega
-                arregloTareas[indice].Materia = Materia
-                arregloTareas[indice].CedulaDocente = CedulaDocente
-                arregloTareas[indice].Entregado = Entregado
-                arregloTareas[indice].calificacion = calificacion
-                return true
-            }
-            return false
+        fun modificarTarea(tareaModificada: Tarea): Boolean{
+            val idTarea = tareaModificada.id
+
+            tareasCollection
+                .document(idTarea)
+                .set(tareaModificada)
+                .addOnSuccessListener {  }
+                .addOnFailureListener {  }
+            return true
         }
 
         //agreagar docente
         fun agregarDocente(profe: Docente): Boolean{
-            if(buscarDocente(profe.Cedula) == null){
-                arregloDocentes.add(profe)
-                return true
-            }
-            return false
+            docentesCollection
+                .document(profe.Cedula)
+                .set(profe)
+                .addOnSuccessListener { }
+                .addOnFailureListener {  }
+            return true
         }
 
         //agregar tarea
         fun agregarTarea(deber: Tarea): Boolean{
-            if(buscarTareas(deber.id) == null){
-                arregloTareas.add(deber)
-                return true
-            }
-            return false
+            tareasCollection
+                .document(deber.id)
+                .set(deber)
+                .addOnSuccessListener {  }
+                .addOnFailureListener {  }
+            return true
         }
 
 

@@ -1,11 +1,19 @@
 package com.example.examen
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ListView
 import android.widget.Switch
 import android.widget.TextView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class crear_tarea : AppCompatActivity() {
@@ -23,8 +31,6 @@ class crear_tarea : AppCompatActivity() {
         val botonAgregar = findViewById<Button>(R.id.btn_guardar_tarea)
         botonAgregar.setOnClickListener{
 
-            val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-
             val descripcion = findViewById<TextView>(R.id.txt_descripcion)
             val fecha = findViewById<TextView>(R.id.txt_fecha)
             val Materia = findViewById<TextView>(R.id.txt_materia)
@@ -32,16 +38,22 @@ class crear_tarea : AppCompatActivity() {
             val calificacion = findViewById<TextView>(R.id.txt_nota)
 
             BaseDatos.agregarTarea(Tarea(
-                BaseDatos.arregloTareas.size+1,
+                SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault()).format(Date()),
                 descripcion.text.toString(),
-                formato.parse(fecha.text.toString()),
+                fecha.text.toString(),
                 Materia.text.toString(),
                 docenteCedula,
                 entrega.isChecked,
                 calificacion.text.toString().toDouble()
             ))
+
             ListView_Tareas.adaptadorTarea.notifyDataSetChanged()
-            finish()
+
+            val intent = Intent(this, ListView_Tareas::class.java)
+            intent.putExtra("idItemSeleccionado", idTareaSeleccionada)
+            intent.putExtra("cedulaDocente", docenteCedula)
+            startActivity(intent)
+
         }
 
     }

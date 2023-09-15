@@ -1,20 +1,19 @@
 package com.example.examen
 
-import java.util.Date
 
 class Tarea {
-    var id: Int
+    var id: String
     var Descripcion: String
-    var Fecha_Entrega: Date
+    var Fecha_Entrega: String
     var Materia: String
     var CedulaDocente: String
     var Entregado: Boolean
     var calificacion: Double
 
     constructor(
-        id: Int,
+        id: String,
         Descripcion: String,
-        Fecha_Entrega: Date,
+        Fecha_Entrega: String,
         Materia: String,
         CedulaDocente: String,
         Entregado: Boolean,

@@ -1,5 +1,6 @@
 package com.example.examen
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -51,15 +52,18 @@ class editar_docente : AppCompatActivity() {
         val cuadroFacultad = findViewById<TextView>(R.id.txt_facultad_docente_mod)
 
         val verificador = BaseDatos.modificarDocente(
+            Docente(
             cuadroNombre.text.toString(),
             cuadroCedula.text.toString(),
             cuadroOficina.text.toString().toInt(),
-            cuadroTutorias.text.toString().split(',').toTypedArray(),
+            cuadroTutorias.text.toString().split(','),
             cuadroFacultad.text.toString()
+            )
         )
         if (verificador){
-            ListView_Docentes.adaptadorDocente.notifyDataSetChanged()
-            finish()
+
+            val intent = Intent(this, ListView_Docentes::class.java)
+            startActivity(intent)
         }else{
             val alertDialogBuilder = AlertDialog.Builder(this)
             alertDialogBuilder.setMessage("Error al momento de modificar")

@@ -21,9 +21,8 @@ class datosTarea : AppCompatActivity() {
     }
 
     fun mostrarInfo(){
-        val tareaSeleccionada = ListView_Tareas.tareasDelDocente[idTareaSeleccionada]
+        val tareaSeleccionada = ListView_Tareas.tareasTotales[idTareaSeleccionada]
 
-        val formato = SimpleDateFormat("dd/MM/yyyy")
 
         val descripcion = findViewById<TextView>(R.id.descripcion_datos)
         val fecha = findViewById<TextView>(R.id.fecha_datos)
@@ -32,7 +31,7 @@ class datosTarea : AppCompatActivity() {
         val calificacion = findViewById<TextView>(R.id.notaDatos)
 
         descripcion.text = tareaSeleccionada.Descripcion
-        fecha.text = formato.format(tareaSeleccionada.Fecha_Entrega)
+        fecha.text = tareaSeleccionada.Fecha_Entrega
         Materia.text = tareaSeleccionada.Materia
         entrega.isChecked = tareaSeleccionada.Entregado
         calificacion.text = tareaSeleccionada.calificacion.toString()

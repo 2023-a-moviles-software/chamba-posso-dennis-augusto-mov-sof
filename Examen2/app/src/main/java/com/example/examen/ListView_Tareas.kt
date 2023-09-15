@@ -1,9 +1,9 @@
 package com.example.examen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
@@ -12,6 +12,10 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class ListView_Tareas : AppCompatActivity() {
 
@@ -19,31 +23,26 @@ class ListView_Tareas : AppCompatActivity() {
     var cedulaDocente = ""
     var idDocenteSeleccionado = 0
 
+
     companion object{
         lateinit var adaptadorTarea: ArrayAdapter<Tarea>
-        var tareasDelDocente = ArrayList<Tarea>()
-        val tareasTotales = BaseDatos.arregloTareas
+        var tareasTotales = mutableListOf<Tarea>()
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_view_tareas)
+        val listViewTarea = findViewById<ListView>(R.id.lv_tareas)
 
         //datos del docente
         idDocenteSeleccionado = intent.getIntExtra("idItemSeleccionado", idDocenteSeleccionado)
         cedulaDocente = intent.getStringExtra("cedulaDocente")?: cedulaDocente
 
         //recuperacion de tareas del docente
-        tareasDelDocente = tareasTotales.filter{tarea ->
-            tarea.CedulaDocente == cedulaDocente
-        } as ArrayList<Tarea>
+        cargarTareas()
 
-        //inicio de adaptador
-        val listViewTarea = findViewById<ListView>(R.id.lv_tareas)
-        adaptadorTarea = ArrayAdapter(this, android.R.layout.simple_list_item_1, tareasDelDocente)
 
-        listViewTarea.adapter = adaptadorTarea
-        adaptadorTarea.notifyDataSetChanged()
 
         //seteo del layoud
         val nombreDocente = findViewById<TextView>(R.id.nombre_docente)
@@ -51,9 +50,13 @@ class ListView_Tareas : AppCompatActivity() {
 
         //agregar tarea
         val botonAgregarTarea = findViewById<Button>(R.id.btn_aniadir_tareas)
+        val botonRegresar = findViewById<Button>(R.id.btn_regresar)
 
         botonAgregarTarea.setOnClickListener{
             irActividad(crear_tarea::class.java)
+        }
+        botonRegresar.setOnClickListener{
+            irActividad(ListView_Docentes::class.java)
         }
 
         listViewTarea.setOnItemClickListener{
@@ -65,19 +68,8 @@ class ListView_Tareas : AppCompatActivity() {
         registerForContextMenu(listViewTarea)
     }
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
-
-        tareasDelDocente = tareasTotales.filter{tarea ->
-            tarea.CedulaDocente == cedulaDocente
-        } as ArrayList<Tarea>
-
-        //inicio de adaptador
-        val listViewTarea = findViewById<ListView>(R.id.lv_tareas)
-        adaptadorTarea = ArrayAdapter(this, android.R.layout.simple_list_item_1, tareasDelDocente)
-
-        listViewTarea.adapter = adaptadorTarea
-        adaptadorTarea.notifyDataSetChanged()
     }
 
     override fun onCreateContextMenu(
@@ -104,10 +96,11 @@ class ListView_Tareas : AppCompatActivity() {
             }
 
             R.id.menu_eliminar_tarea -> {
-                val idtarea = tareasDelDocente[idTareaSeleccionada].id
+                val idtarea = tareasTotales[idTareaSeleccionada].id
                 BaseDatos.eliminarTarea(idtarea)
-                tareasTotales.removeIf{tarea -> tarea.id == idtarea}
-                tareasDelDocente.removeIf{tarea -> tarea.id == idtarea}
+
+                cargarTareas()
+
                 adaptadorTarea.notifyDataSetChanged()
                 return true
             }
@@ -124,6 +117,32 @@ class ListView_Tareas : AppCompatActivity() {
         intent.putExtra("cedulaDocente", cedulaDocente)
         startActivity(intent)
     }
+
+
+    private fun cargarTareas(){
+        GlobalScope.launch(Dispatchers.Main){
+            try{
+                val listViewTarea = findViewById<ListView>(R.id.lv_tareas)
+
+                tareasTotales = BaseDatos.mostrarTareas()
+
+                adaptadorTarea = ArrayAdapter(
+                    this@ListView_Tareas,
+                    android.R.layout.simple_list_item_1,
+                    tareasTotales.filter{tarea -> tarea.CedulaDocente == cedulaDocente } as ArrayList<Tarea>
+                )
+
+                //adaptador
+
+                listViewTarea.adapter = adaptadorTarea
+                adaptadorTarea.notifyDataSetChanged()
+                registerForContextMenu(listViewTarea)
+
+            }catch (e: Exception){}
+        }
+
+    }
+
 
 
 }

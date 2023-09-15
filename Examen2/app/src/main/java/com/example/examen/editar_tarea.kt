@@ -1,6 +1,7 @@
 package com.example.examen
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -33,9 +34,7 @@ class editar_tarea : AppCompatActivity() {
     }
 
     fun mostrarInfo(){
-        val tareaSeleccionada = ListView_Tareas.tareasDelDocente[idTareaSeleccionada]
-
-        val formato = SimpleDateFormat("dd/MM/yyyy")
+        val tareaSeleccionada = ListView_Tareas.tareasTotales[idTareaSeleccionada]
 
         val descripcion = findViewById<TextView>(R.id.txt_descripcion_mod)
         val fecha = findViewById<TextView>(R.id.txt_fecha_mod)
@@ -44,7 +43,7 @@ class editar_tarea : AppCompatActivity() {
         val calificacion = findViewById<TextView>(R.id.txt_nota_mod)
 
         descripcion.text = tareaSeleccionada.Descripcion
-        fecha.text = formato.format(tareaSeleccionada.Fecha_Entrega)
+        fecha.text = tareaSeleccionada.Fecha_Entrega
         Materia.text = tareaSeleccionada.Materia
         entrega.isChecked = tareaSeleccionada.Entregado
         calificacion.text = tareaSeleccionada.calificacion.toString()
@@ -52,8 +51,7 @@ class editar_tarea : AppCompatActivity() {
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     fun actualizarTarea(){
-        val tareaSeleccionada = ListView_Tareas.tareasDelDocente[idTareaSeleccionada]
-        val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val tareaSeleccionada = ListView_Tareas.tareasTotales[idTareaSeleccionada]
 
         val descripcion = findViewById<TextView>(R.id.txt_descripcion_mod)
         val fecha = findViewById<TextView>(R.id.txt_fecha_mod)
@@ -62,26 +60,30 @@ class editar_tarea : AppCompatActivity() {
         val calificacion = findViewById<TextView>(R.id.txt_nota_mod)
 
         BaseDatos.modificarTarea(
+            Tarea(
             tareaSeleccionada.id,
             descripcion.text.toString(),
-            formato.parse(fecha.text.toString()),
+            fecha.text.toString(),
             Materia.text.toString(),
             tareaSeleccionada.CedulaDocente,
             entrega.isChecked,
             calificacion.text.toString().toDouble()
-        )
+        ))
 
         var nuevaTarea = Tarea(tareaSeleccionada.id,
             descripcion.text.toString(),
-            formato.parse(fecha.text.toString()),
+            fecha.text.toString(),
             Materia.text.toString(),
             tareaSeleccionada.CedulaDocente,
             entrega.isChecked,
             calificacion.text.toString().toDouble())
 
-        ListView_Tareas.tareasDelDocente[idTareaSeleccionada] = nuevaTarea
+        ListView_Tareas.tareasTotales[idTareaSeleccionada] = nuevaTarea
 
         ListView_Tareas.adaptadorTarea.notifyDataSetChanged()
-        finish()
+        val intent = Intent(this, ListView_Tareas::class.java)
+        intent.putExtra("idItemSeleccionado", idTareaSeleccionada)
+        intent.putExtra("cedulaDocente", cedulaDocente)
+        startActivity(intent)
     }
 }

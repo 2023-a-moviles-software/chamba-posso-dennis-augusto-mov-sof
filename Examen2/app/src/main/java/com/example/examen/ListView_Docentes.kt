@@ -10,11 +10,15 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class ListView_Docentes : AppCompatActivity() {
 
     //base de datos
-    val docentes = BaseDatos.arregloDocentes
+    private lateinit var docentes: List<Docente>
     var idItemSeleccionado = 0
     var cedulaDocente = ""
 
@@ -26,22 +30,14 @@ class ListView_Docentes : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_view_docentes)
 
-        //adaptador
-        val lista = findViewById<ListView>(R.id.lv_docentes)
-        adaptadorDocente = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            docentes
-        )
-        lista.adapter = adaptadorDocente
-        adaptadorDocente.notifyDataSetChanged()
+        cargarDocentes()
 
         //crear docente
         val botonCrear = findViewById<Button>(R.id.btn_crear_docente)
         botonCrear.setOnClickListener{
             irActividad(crear_docente::class.java)
         }
-        registerForContextMenu(lista)
+
     }
 
     override fun onCreateContextMenu(
@@ -67,7 +63,13 @@ class ListView_Docentes : AppCompatActivity() {
             }
 
             R.id.menu_eliminar_docente -> {
-                docentes.removeAt(idItemSeleccionado)
+                val docente = docentes[idItemSeleccionado]
+                cedulaDocente = docente.Cedula
+
+                val eliminacion = BaseDatos.eliminarDocente(cedulaDocente)
+
+                cargarDocentes()
+
                 adaptadorDocente.notifyDataSetChanged()
                 return true
             }
@@ -95,5 +97,32 @@ class ListView_Docentes : AppCompatActivity() {
 
         startActivity(intent)
     }
+
+    override fun onStart() {
+        super.onStart()
+
+    }
+    private fun cargarDocentes(){
+        GlobalScope.launch(Dispatchers.Main){
+            try{
+                docentes = BaseDatos.mostrarDocentes()
+
+                adaptadorDocente = ArrayAdapter(
+                    this@ListView_Docentes,
+                    android.R.layout.simple_list_item_1,
+                    docentes
+                )
+
+                //adaptador
+                val lista = findViewById<ListView>(R.id.lv_docentes)
+
+                lista.adapter = adaptadorDocente
+                adaptadorDocente.notifyDataSetChanged()
+                registerForContextMenu(lista)
+            }catch (e: Exception){}
+        }
+
+    }
+
 
 }
