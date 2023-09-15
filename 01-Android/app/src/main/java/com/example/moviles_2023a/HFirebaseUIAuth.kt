@@ -17,6 +17,7 @@ class HFirebaseUIAuth : AppCompatActivity() {
         setContentView(R.layout.activity_hfirebase_uiauth)
         val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
         btnLogin.setOnClickListener{
+
             val providers = arrayListOf(
             //arreglo de providers para logearse
             AuthUI.IdpConfig.EmailBuilder().build()
